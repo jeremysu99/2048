@@ -147,12 +147,7 @@ class Game(tk.Frame):
                 if self.matrix[i][j] == self.matrix[i+1][j]:
                     return True
         return False
-    def columncheck(self):
-        for i in range(3):
-            for j in range(4):
-                if self.matrix[i][j] == self.matrix[i+1][j] and self.matrix[i][j] != 0:
-                    return True
-        return False
+        
     def left(self,event):
         if self.check("Left"):
             self.stack()
@@ -195,6 +190,7 @@ class Game(tk.Frame):
             self.add_new_tile()
             self.update_GUI()
             self.game_over()
+            
     def check(self, dir):
         if dir == "Right":
             self.reverse()
@@ -218,9 +214,10 @@ class Game(tk.Frame):
                 cont[i] = False
         if dir == "Right" or dir == "Down":
             self.reverse()
-        elif dir == "Up" or dir == "Down":
+        if dir == "Up" or dir == "Down":
             self.transpose()
         return cont.count(True) > 0
+        
     def game_over(self):
         if any(2048 in row for row in self.matrix):
             game_over_frame = tk.Frame(self.main_grid, borderwidth=2)
